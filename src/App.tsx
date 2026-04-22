@@ -106,9 +106,14 @@ const strengths = [
 
 const socialLinks = [
   {
-    label: "GitHub",
-    href: "https://github.com/",
-    helper: "Replace with your GitHub profile",
+    label: "GitHub Repo",
+    href: "https://github.com/masoomraja/my-portfolio",
+    helper: "Portfolio source code",
+  },
+  {
+    label: "Docker Setup",
+    href: "https://github.com/masoomraja/my-portfolio/tree/codex/dockerize-my-portfolio",
+    helper: "Dockerized deployment branch",
   },
   {
     label: "LinkedIn",
@@ -703,6 +708,20 @@ function App() {
                 rel="noreferrer"
               >
                 linkedin.com/in/md-masoom-raja-3b83a9342
+              </a>
+              <a
+                href="https://github.com/masoomraja/my-portfolio"
+                target="_blank"
+                rel="noreferrer"
+              >
+                github.com/masoomraja/my-portfolio
+              </a>
+              <a
+                href="https://github.com/masoomraja/my-portfolio/tree/codex/dockerize-my-portfolio"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Docker branch: codex/dockerize-my-portfolio
               </a>
               <span>Bengaluru, India</span>
             </div>
