@@ -38,15 +38,15 @@ const recruiterHighlights = [
   },
   {
     value: "Full-Stack & AI",
-    label: "Java · Spring Boot · Docker",
+    label: "Java · Python · Docker",
   },
 ];
 
 const focusAreas = [
   "Java & Spring Boot",
-  "Backend & REST APIs",
+  "Python & FastAPI",
   "Docker & Cloud",
-  "Agentic AI & ML",
+  "Agentic AI & OpenCV",
 ];
 
 const experienceHighlights = [
@@ -138,12 +138,12 @@ const projects: ProjectItem[] = [
       "NEXOVRA – AI-Powered Telemetry & Anomaly Detection Platform",
     description:
       "AI-powered telemetry monitoring and unsupervised anomaly detection platform designed to surface unusual system patterns and deployment risks early.",
-    pipeline: ["Telemetry Stream", "FastAPI · Isolation Forest", "Spring Boot API", "React Dashboard"],
+    pipeline: ["Telemetry Stream", "Python · FastAPI", "Spring Boot API", "React Dashboard"],
     highlights: [
-      "Built microservice architecture combining Spring Boot APIs with FastAPI Isolation Forest inference.",
+      "Built microservice architecture combining Spring Boot APIs with Python FastAPI Isolation Forest inference.",
       "Paired automated anomaly scoring with a React monitoring interface.",
     ],
-    stack: ["Spring Boot", "FastAPI", "Isolation Forest", "React"],
+    stack: ["Spring Boot", "Python", "FastAPI", "Isolation Forest", "React"],
     href: "https://github.com/masoomraja/NEXOVRA",
     linkLabel: "View on GitHub",
   },
@@ -184,7 +184,7 @@ const projects: ProjectItem[] = [
     title: "Face Recognition-Based Attendance Monitoring System",
     description:
       "Automated attendance monitoring application using computer vision to detect and recognize faces in real time and log records cleanly.",
-    pipeline: ["Webcam Feed", "Haar Cascade", "LBPH Classifier", "CSV Attendance Log"],
+    pipeline: ["Webcam Feed", "Python · OpenCV", "LBPH Classifier", "CSV Attendance Log"],
     highlights: [
       "Implemented Haar Cascade face detection and LBPH recognition pipelines in Python and OpenCV.",
       "Automated timestamped CSV attendance storage to eliminate manual roll-call effort.",
@@ -1024,18 +1024,18 @@ function App() {
         <div className="hero-copy">
           <div className="availability-pill">
             <span className="status-dot" aria-hidden="true" />
-            <span>Open to Java, Backend &amp; Software Engineer Roles · All Over India</span>
+            <span>Open to Java, Python, Backend &amp; Software Engineer Roles · All Over India</span>
           </div>
 
           <InteractiveText
             as="h1"
-            text="Building reliable Java backends, cloud systems, and AI-powered apps."
+            text="Building reliable Java backends, Python AI services, and cloud apps."
             tone="heading"
           />
           <InteractiveText
             as="p"
             className="hero-summary"
-            text="MCA student and Software Development Intern with hands-on experience in Java, Spring Boot, web technologies, Docker, and AI/ML. Honored with the Best Paper Award at IEEE CCGE 2026 and Oracle Agentic AI Certified."
+            text="MCA student and Software Development Intern with hands-on experience in Java, Python, Spring Boot, FastAPI, web technologies, Docker, and AI/ML. Honored with the Best Paper Award at IEEE CCGE 2026 and Oracle Agentic AI Certified."
           />
 
           <div className="hero-buttons">
@@ -1166,7 +1166,7 @@ function App() {
                   text="Primary Stack"
                   tone="heading"
                 />
-                <span>Java, Spring Boot, JDBC, MySQL, React, Docker</span>
+                <span>Java, Python, Spring Boot, FastAPI, MySQL, React, Docker</span>
               </div>
               <div className="stat-card">
                 <InteractiveText
