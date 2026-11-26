@@ -7,7 +7,7 @@ import {
   useGLTF,
   useProgress,
 } from "@react-three/drei";
-import { AdditiveBlending, LoopRepeat } from "three";
+import { AdditiveBlending, LoopRepeat, PCFShadowMap } from "three";
 import type { Group, Material, Mesh } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
@@ -80,7 +80,7 @@ function ContactFloorGlow() {
 
 function ContactModel() {
   const groupRef = useRef<Group>(null);
-  const { scene, animations } = useGLTF("/models/contact.glb");
+  const { scene, animations } = useGLTF("/models/contact.glb", "/draco/");
   const clonedScene = useMemo(() => clone(scene), [scene]);
   const { actions, names } = useAnimations(animations, clonedScene);
 
@@ -174,7 +174,7 @@ function ContactScene() {
           gl.toneMappingExposure = 1.88;
           scene.background = null;
         }}
-        shadows
+        shadows={{ type: PCFShadowMap }}
       >
         <ambientLight intensity={2.1} />
         <hemisphereLight
@@ -239,7 +239,5 @@ function ContactScene() {
     </div>
   );
 }
-
-useGLTF.preload("/models/contact.glb");
 
 export default ContactScene;

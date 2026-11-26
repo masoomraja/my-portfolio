@@ -7,7 +7,7 @@ import {
   useGLTF,
   useProgress,
 } from "@react-three/drei";
-import { AdditiveBlending, LoopRepeat } from "three";
+import { AdditiveBlending, LoopRepeat, PCFShadowMap } from "three";
 import type { Group, Material, Mesh } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
@@ -80,7 +80,7 @@ function FloorGlow() {
 
 function AvatarModel() {
   const groupRef = useRef<Group>(null);
-  const { scene, animations } = useGLTF("/models/avatar.glb");
+  const { scene, animations } = useGLTF("/models/avatar.glb", "/draco/");
   const clonedScene = useMemo(() => clone(scene), [scene]);
   const { actions, names } = useAnimations(animations, clonedScene);
 
@@ -174,7 +174,7 @@ function ThreeScene() {
           gl.toneMappingExposure = 2.05;
           scene.background = null;
         }}
-        shadows
+        shadows={{ type: PCFShadowMap }}
       >
         <ambientLight intensity={2.75} />
         <hemisphereLight
@@ -240,6 +240,6 @@ function ThreeScene() {
   );
 }
 
-useGLTF.preload("/models/avatar.glb");
+useGLTF.preload("/models/avatar.glb", "/draco/");
 
 export default ThreeScene;

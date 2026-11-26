@@ -2,7 +2,7 @@ import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Decal, Html, useTexture } from "@react-three/drei";
 import type { Group, Texture } from "three";
-import { Vector3 } from "three";
+import { PCFShadowMap, Vector3 } from "three";
 
 type SkillConfig = {
   image: string;
@@ -150,29 +150,13 @@ function SkillSphere({
         />
 
         <Decal
-          position={[body.radius * 0.18, body.radius * 0.16, body.radius * 0.82]}
-          rotation={[0.08, 0.12, body.textureRotation]}
-          scale={body.radius * 1.14}
+          position={[body.radius * 0.12, body.radius * 0.12, body.radius * 0.85]}
+          rotation={[0.06, 0.08, body.textureRotation * 0.4]}
+          scale={body.radius * 1.18}
         >
           <meshBasicMaterial
             map={texture}
             opacity={1}
-            polygonOffset
-            polygonOffsetFactor={-4}
-            toneMapped={false}
-            transparent
-          />
-        </Decal>
-
-        <Decal
-          position={[-body.radius * 0.1, -body.radius * 0.22, body.radius * 0.78]}
-          rotation={[-0.2, -0.55, -body.textureRotation * 0.7]}
-          scale={body.radius * 0.88}
-        >
-          <meshBasicMaterial
-            color={body.tint}
-            map={texture}
-            opacity={0.22}
             polygonOffset
             polygonOffsetFactor={-4}
             toneMapped={false}
@@ -331,17 +315,17 @@ function SkillsPlayground() {
   return (
     <div className="skills-showcase">
       <div className="skills-showcase-copy">
-        <p className="skills-kicker">Physics Driven</p>
-        <h3>3D skill balls that bounce, cluster, and react to your cursor.</h3>
+        <p className="skills-kicker">Interactive Stack</p>
+        <h3>Hands-on tools across backend, web, cloud, and AI.</h3>
         <p>
-          Instead of a static skill list, this section uses glossy spheres with
-          printed tech logos, depth lighting, and motion that feels playful and
-          interactive.
+          From Java, Spring Boot, and MySQL backends to React interfaces, Docker
+          containers, and Agentic AI workflows—interact with the core
+          technologies behind my projects.
         </p>
         <ul className="skills-notes">
-          <li>White 3D spheres with logo decals</li>
-          <li>Collision-style movement with hover repulsion</li>
-          <li>Easy to extend by adding one more entry in the skill list</li>
+          <li>Backend &amp; APIs: Java, Spring Boot, JDBC, Node.js, Express.js</li>
+          <li>Databases &amp; DevOps: MySQL, MongoDB, Docker, Nginx, AWS</li>
+          <li>AI &amp; Languages: Python, JavaScript, C, C++, GenAI &amp; NLP</li>
         </ul>
       </div>
 
@@ -354,7 +338,7 @@ function SkillsPlayground() {
             gl.toneMappingExposure = 1.9;
             scene.background = null;
           }}
-          shadows
+          shadows={{ type: PCFShadowMap }}
         >
           <ambientLight intensity={1.35} />
           <directionalLight
