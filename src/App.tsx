@@ -265,12 +265,13 @@ const featuredCertification = {
 
 const ongoingTraining = {
   badge: "Currently Pursuing · Aug 2026 – Present",
-  issuer: "KodNest · Java Full Stack Development Training",
-  title: "Java Full Stack Development – KodNest",
+  issuer: "KodNest · Full Stack Development Training",
+  title: "Java & Python Full Stack Development – KodNest",
   description:
-    "Comprehensive hands-on training focused on building scalable, database-driven Java web applications and strengthening backend and full-stack software engineering fundamentals.",
+    "Comprehensive hands-on training in Java and Python full-stack development, focused on building scalable, database-driven web applications and strengthening backend and software engineering fundamentals.",
   areas: [
     "Core Java (OOP, Collections, Multithreading)",
+    "Python Programming & Scripting",
     "Advanced Java (JDBC, Servlets, JSP)",
     "Spring Framework & Spring Boot",
     "Hibernate & REST APIs",
