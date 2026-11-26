@@ -80,7 +80,7 @@ function FloorGlow() {
 
 function AvatarModel() {
   const groupRef = useRef<Group>(null);
-  const { scene, animations } = useGLTF("/models/avatar.glb", "/draco/");
+  const { scene, animations } = useGLTF("/models/avatar.glb", false, true);
   const clonedScene = useMemo(() => clone(scene), [scene]);
   const { actions, names } = useAnimations(animations, clonedScene);
 
@@ -168,7 +168,7 @@ function ThreeScene() {
     <div className="three-scene" aria-label="Animated 3D character">
       <Canvas
         camera={{ position: [0, 1.2, 7], fov: 24 }}
-        dpr={[1, 1.75]}
+        dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
         onCreated={({ gl, scene }) => {
           gl.toneMappingExposure = 2.05;
@@ -202,7 +202,6 @@ function ThreeScene() {
           penumbra={0.9}
           distance={18}
           color="#ffffff"
-          castShadow
         />
         <pointLight
           position={[0, 1.75, 3.5]}
@@ -227,6 +226,7 @@ function ThreeScene() {
           <AvatarModel />
           <FloorGlow />
           <ContactShadows
+            frames={1}
             position={[0, -2.45, 0]}
             opacity={0.34}
             scale={12}
@@ -240,6 +240,6 @@ function ThreeScene() {
   );
 }
 
-useGLTF.preload("/models/avatar.glb", "/draco/");
+useGLTF.preload("/models/avatar.glb", false, true);
 
 export default ThreeScene;

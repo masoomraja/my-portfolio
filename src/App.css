@@ -97,7 +97,6 @@
   width: calc(100% + 140px);
   height: calc(100% + 120px);
   transform: translate(-70px, -24px) scale(1.06);
-  filter: blur(0.2px) drop-shadow(0 0 28px rgba(56, 189, 248, 0.08));
 }
 
 .cursor-glow {
@@ -692,7 +691,6 @@ div[id] {
   display: block;
   width: 100% !important;
   height: 100% !important;
-  filter: drop-shadow(0 34px 58px rgba(8, 15, 30, 0.45));
 }
 
 .scene-loader {
@@ -1161,7 +1159,6 @@ div[id] {
   display: block;
   width: 100% !important;
   height: 100% !important;
-  filter: drop-shadow(0 22px 34px rgba(8, 15, 30, 0.32));
 }
 
 .contact-details {

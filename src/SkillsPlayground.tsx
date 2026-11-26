@@ -313,6 +313,7 @@ function SkillsField({ scatterSignal }: { scatterSignal: number }) {
       ))}
 
       <ContactShadows
+        frames={1}
         blur={2.8}
         far={6}
         opacity={0.4}
@@ -353,7 +354,7 @@ function SkillsPlayground() {
       <div className="skills-playground">
         <Canvas
           camera={{ position: [0, 0.1, 6.8], fov: 34 }}
-          dpr={[1, 1.8]}
+          dpr={[1, 1.5]}
           gl={{ antialias: true, alpha: true }}
           onCreated={({ gl, scene }) => {
             gl.toneMappingExposure = 1.9;

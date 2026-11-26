@@ -541,6 +541,16 @@ function InteractiveText({
   text,
   tone = "body",
 }: InteractiveTextProps) {
+  if (tone !== "heading" || (Component !== "h1" && Component !== "h2")) {
+    return (
+      <Component
+        className={`interactive-text interactive-text-${tone} ${className}`.trim()}
+      >
+        {text}
+      </Component>
+    );
+  }
+
   const words = text.split(" ");
 
   return (
@@ -625,7 +635,21 @@ function App() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [selectedCategory, setSelectedCategory] =
     useState<ProjectCategory>("All");
+  const [heroSceneReady, setHeroSceneReady] = useState(false);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const frameId = window.requestAnimationFrame(() => {
+      if (!cancelled) {
+        setHeroSceneReady(true);
+      }
+    });
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frameId);
+    };
+  }, []);
   const projectsSectionRef = useRef<HTMLElement>(null);
 
   const filteredProjects =
@@ -1021,15 +1045,21 @@ function App() {
         </div>
 
         <div className="hero-visual">
-          <Suspense
-            fallback={
-              <div className="scene-fallback" aria-label="Loading 3D scene">
-                <span className="scene-loader">Loading 3D Avatar...</span>
-              </div>
-            }
-          >
-            <ThreeScene />
-          </Suspense>
+          {heroSceneReady ? (
+            <Suspense
+              fallback={
+                <div className="scene-fallback" aria-label="Loading 3D scene">
+                  <span className="scene-loader">Loading 3D Avatar...</span>
+                </div>
+              }
+            >
+              <ThreeScene />
+            </Suspense>
+          ) : (
+            <div className="scene-fallback" aria-label="Loading 3D scene">
+              <span className="scene-loader">Loading 3D Avatar...</span>
+            </div>
+          )}
         </div>
       </header>
 

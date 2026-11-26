@@ -80,7 +80,7 @@ function ContactFloorGlow() {
 
 function ContactModel() {
   const groupRef = useRef<Group>(null);
-  const { scene, animations } = useGLTF("/models/contact.glb", "/draco/");
+  const { scene, animations } = useGLTF("/models/contact.glb", false, true);
   const clonedScene = useMemo(() => clone(scene), [scene]);
   const { actions, names } = useAnimations(animations, clonedScene);
 
@@ -168,7 +168,7 @@ function ContactScene() {
     <div className="contact-three-scene" aria-label="Animated 3D contact model">
       <Canvas
         camera={{ position: [0, 1.05, 6.7], fov: 28 }}
-        dpr={[1, 1.6]}
+        dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
         onCreated={({ gl, scene }) => {
           gl.toneMappingExposure = 1.88;
@@ -202,7 +202,6 @@ function ContactScene() {
           penumbra={0.9}
           distance={18}
           color="#ffffff"
-          castShadow
         />
         <pointLight
           position={[0, 1.7, 3.4]}
@@ -227,6 +226,7 @@ function ContactScene() {
           <ContactModel />
           <ContactFloorGlow />
           <ContactShadows
+            frames={1}
             position={[0, -1.7, 0]}
             opacity={0.24}
             scale={8}
