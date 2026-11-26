@@ -607,6 +607,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ProjectCategory>("All");
   const cursorGlowRef = useRef<HTMLDivElement>(null);
+  const projectsSectionRef = useRef<HTMLElement>(null);
 
   const filteredProjects =
     selectedCategory === "All"
@@ -614,12 +615,50 @@ function App() {
       : projects.filter((project) => project.category === selectedCategory);
 
   const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
+    let copied = false;
+
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(EMAIL);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+    }
+
+    if (!copied) {
+      try {
+        const helper = document.createElement("textarea");
+        helper.value = EMAIL;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        copied = document.execCommand("copy");
+        document.body.removeChild(helper);
+      } catch {
+        copied = false;
+      }
+    }
+
+    if (copied) {
       setCopiedEmail(true);
       window.setTimeout(() => setCopiedEmail(false), 2200);
-    } catch {
-      window.location.href = `mailto:${EMAIL}`;
+      return;
+    }
+
+    window.location.href = `mailto:${EMAIL}`;
+  };
+
+  const handleCategorySelect = (category: ProjectCategory) => {
+    setSelectedCategory(category);
+    const section = projectsSectionRef.current;
+    if (section) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < 80) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 
@@ -1121,6 +1160,7 @@ function App() {
         </section>
 
         <section
+          ref={projectsSectionRef}
           className={getSectionClassName("projects")}
           data-scroll-section="projects"
           id="projects"
@@ -1165,7 +1205,7 @@ function App() {
                     selectedCategory === category ? " is-active" : ""
                   }`}
                   aria-pressed={selectedCategory === category}
-                  onClick={() => setSelectedCategory(category)}
+                  onClick={() => handleCategorySelect(category)}
                 >
                   {category} ({count})
                 </button>
