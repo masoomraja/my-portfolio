@@ -254,6 +254,23 @@ const featuredCertification = {
   ],
 };
 
+const ongoingTraining = {
+  badge: "Currently Pursuing · Aug 2026 – Present",
+  issuer: "KodNest · Java Full Stack Development Training",
+  title: "Java Full Stack Development – KodNest",
+  description:
+    "Comprehensive hands-on training focused on building scalable, database-driven Java web applications and strengthening backend and full-stack software engineering fundamentals.",
+  areas: [
+    "Core Java (OOP, Collections, Multithreading)",
+    "Advanced Java (JDBC, Servlets, JSP)",
+    "Spring Framework & Spring Boot",
+    "Hibernate & REST APIs",
+    "HTML5, CSS3, JavaScript & React",
+    "MySQL & SQL",
+    "Git, GitHub, Maven, Postman & IntelliJ / Eclipse",
+  ],
+};
+
 const professionalCertifications = [
   {
     status: "Completed · 12 Weeks",
@@ -347,15 +364,17 @@ const skillGroups = [
   },
   {
     title: "Backend & Databases",
-    items: "Spring Boot, JDBC, Node.js, Express.js, REST APIs, MySQL, MongoDB",
+    items:
+      "Spring Boot, Hibernate, JDBC, Servlets/JSP, Node.js, Express.js, REST APIs, MySQL, MongoDB",
   },
   {
     title: "Frontend & UI",
     items: "React.js, HTML5, CSS3, Responsive Web Design, Three.js",
   },
   {
-    title: "DevOps & Cloud",
-    items: "Docker, Docker Compose, Git, GitHub, CI/CD, AWS, Nginx",
+    title: "DevOps & Tools",
+    items:
+      "Docker, Docker Compose, Git, GitHub, Maven, Postman, IntelliJ IDEA, CI/CD, AWS, Nginx",
   },
   {
     title: "AI / ML & Research",
@@ -1318,6 +1337,28 @@ function App() {
               </article>
             ))}
           </div>
+
+          <article className="card ongoing-training-card">
+            <div className="card-top-row">
+              <span className="section-label">{ongoingTraining.issuer}</span>
+              <span className="badge-pill badge-live">
+                {ongoingTraining.badge}
+              </span>
+            </div>
+            <InteractiveText
+              as="h3"
+              text={ongoingTraining.title}
+              tone="heading"
+            />
+            <InteractiveText as="p" text={ongoingTraining.description} />
+            <div className="tag-row">
+              {ongoingTraining.areas.map((area) => (
+                <span className="tech-tag" key={area}>
+                  {area}
+                </span>
+              ))}
+            </div>
+          </article>
 
           <div className="tech-cert-grid">
             {technicalCertifications.map((cert) => (
