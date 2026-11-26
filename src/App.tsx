@@ -116,6 +116,7 @@ type ProjectItem = {
   tag: string;
   title: string;
   description: string;
+  pipeline: string[];
   highlights: string[];
   stack: string[];
   href?: string;
@@ -137,6 +138,7 @@ const projects: ProjectItem[] = [
       "NEXOVRA – AI-Powered Telemetry & Anomaly Detection Platform",
     description:
       "AI-powered telemetry monitoring and unsupervised anomaly detection platform designed to surface unusual system patterns and deployment risks early.",
+    pipeline: ["Telemetry Stream", "FastAPI · Isolation Forest", "Spring Boot API", "React Dashboard"],
     highlights: [
       "Built microservice architecture combining Spring Boot APIs with FastAPI Isolation Forest inference.",
       "Paired automated anomaly scoring with a React monitoring interface.",
@@ -152,6 +154,7 @@ const projects: ProjectItem[] = [
       "NEXUS – Cloud Incident & Deployment Intelligence Platform",
     description:
       "Cloud operations platform for real-time incident management, anomaly detection, AI-assisted root-cause analysis, and deployment risk intelligence.",
+    pipeline: ["Cloud Events", "Node.js + PostgreSQL", "AWS RCA Engine", "Incident Console"],
     highlights: [
       "Implemented incident workflows and deployment risk observability with React, Node.js, and PostgreSQL.",
       "Integrated AWS-oriented cloud monitoring and root-cause intelligence pipelines.",
@@ -166,6 +169,7 @@ const projects: ProjectItem[] = [
     title: "Fee Query AI",
     description:
       "Natural-language fee management chatbot allowing users to query fees, student records, and payments with a live analytics dashboard.",
+    pipeline: ["NLP Query", "Spring Boot 3.5", "LM Studio / Fallback", "Chart.js Analytics"],
     highlights: [
       "Built on Spring Boot 3.5.3 with local LLM (LM Studio) integration and smart offline fallback.",
       "Added real-time Chart.js reporting to visualize fee collections and query responses.",
@@ -180,6 +184,7 @@ const projects: ProjectItem[] = [
     title: "Face Recognition-Based Attendance Monitoring System",
     description:
       "Automated attendance monitoring application using computer vision to detect and recognize faces in real time and log records cleanly.",
+    pipeline: ["Webcam Feed", "Haar Cascade", "LBPH Classifier", "CSV Attendance Log"],
     highlights: [
       "Implemented Haar Cascade face detection and LBPH recognition pipelines in Python and OpenCV.",
       "Automated timestamped CSV attendance storage to eliminate manual roll-call effort.",
@@ -192,9 +197,10 @@ const projects: ProjectItem[] = [
     title: "Dockerized Portfolio Deployment",
     description:
       "Containerized personal portfolio web application featuring multi-stage Docker builds, Docker Compose orchestration, Nginx serving, and 3D WebGL scenes.",
+    pipeline: ["Vite + React Build", "Docker Multi-Stage", "Nginx Alpine", "Meshopt 3D"],
     highlights: [
       "Configured multi-stage Node + Nginx Alpine Docker images with immutable asset caching.",
-      "Optimized initial load with route/chunk splitting and local Draco 3D mesh compression.",
+      "Optimized initial load with route/chunk splitting and Meshopt 3D mesh compression.",
     ],
     stack: ["Docker", "Docker Compose", "Nginx", "React", "Three.js"],
     href: "https://github.com/masoomraja/my-portfolio/tree/codex/dockerize-my-portfolio",
@@ -206,6 +212,7 @@ const projects: ProjectItem[] = [
     title: "Transactional Bank Management System",
     description:
       "Core Java and MySQL banking application handling customer accounts, authentication, balance checks, deposits, and withdrawals.",
+    pipeline: ["Auth & PIN", "Java OOP Service", "JDBC Transactions", "MySQL Ledger"],
     highlights: [
       "Designed relational schemas and transactional JDBC queries for account integrity.",
       "Structured modular OOP layers separating authentication, ledger actions, and persistence.",
@@ -218,6 +225,7 @@ const projects: ProjectItem[] = [
     title: "Real-Time Chatting Application",
     description:
       "Client-server Java networking application enabling real-time message exchange, connection management, and graceful error handling.",
+    pipeline: ["Client UI", "TCP Socket Stream", "Multithreaded Server", "Peer Broadcast"],
     highlights: [
       "Implemented socket-based communication and concurrent client handling using Java threads.",
       "Built reliable message framing and disconnect recovery between connected peers.",
@@ -230,6 +238,7 @@ const projects: ProjectItem[] = [
     title: "Hotel Management & Electricity Billing Systems",
     description:
       "Relational desktop applications for hotel room bookings, staff/billing workflows, and automated monthly electricity bill generation.",
+    pipeline: ["Booking / Meter Input", "Java Tariff Logic", "JDBC CRUD", "MySQL Records"],
     highlights: [
       "Automated tariff calculations, room allocation states, and customer billing history in MySQL.",
       "Applied clean JDBC CRUD patterns and structured input validation across forms.",
@@ -635,8 +644,54 @@ function App() {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [selectedCategory, setSelectedCategory] =
     useState<ProjectCategory>("All");
+  const [showTechCertDetails, setShowTechCertDetails] = useState(false);
+  const [inquiryName, setInquiryName] = useState("");
+  const [inquiryEmail, setInquiryEmail] = useState("");
+  const [inquiryType, setInquiryType] = useState("Job / Internship Inquiry");
+  const [inquiryMessage, setInquiryMessage] = useState("");
+  const [inquirySubmitted, setInquirySubmitted] = useState(false);
+  const [copiedInquiry, setCopiedInquiry] = useState(false);
   const [heroSceneReady, setHeroSceneReady] = useState(false);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
+
+  const formattedInquirySubject = `[Portfolio] ${inquiryType} from ${
+    inquiryName.trim() || "Visitor"
+  }`;
+  const formattedInquiryBody = [
+    `Name: ${inquiryName.trim() || "Not specified"}`,
+    `Email: ${inquiryEmail.trim() || "Not specified"}`,
+    `Topic: ${inquiryType}`,
+    "",
+    inquiryMessage.trim(),
+  ].join("\n");
+
+  const inquiryMailtoHref = `mailto:${EMAIL}?subject=${encodeURIComponent(
+    formattedInquirySubject
+  )}&body=${encodeURIComponent(formattedInquiryBody)}`;
+
+  const inquiryGmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    EMAIL
+  )}&su=${encodeURIComponent(formattedInquirySubject)}&body=${encodeURIComponent(
+    formattedInquiryBody
+  )}`;
+
+  const handleInquirySubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!inquiryName.trim() || !inquiryMessage.trim()) return;
+    setInquirySubmitted(true);
+    window.location.href = inquiryMailtoHref;
+  };
+
+  const handleCopyInquiry = async () => {
+    const text = `To: ${EMAIL}\nSubject: ${formattedInquirySubject}\n\n${formattedInquiryBody}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedInquiry(true);
+      window.setTimeout(() => setCopiedInquiry(false), 2200);
+    } catch {
+      setCopiedInquiry(false);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -1270,6 +1325,31 @@ function App() {
                   <span className="badge-pill">{project.tag}</span>
                 </div>
                 <InteractiveText as="h3" text={project.title} tone="heading" />
+                <div
+                  className="project-preview"
+                  aria-label={`${project.title} architecture flow`}
+                >
+                  <div className="project-preview-bar">
+                    <span className="preview-dots" aria-hidden="true">
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                    <span className="preview-caption">Architecture Flow</span>
+                  </div>
+                  <div className="project-pipeline">
+                    {project.pipeline.map((node, nodeIdx) => (
+                      <span className="pipeline-step" key={node}>
+                        <span className="pipeline-node">{node}</span>
+                        {nodeIdx < project.pipeline.length - 1 ? (
+                          <span className="pipeline-arrow" aria-hidden="true">
+                            →
+                          </span>
+                        ) : null}
+                      </span>
+                    ))}
+                  </div>
+                </div>
                 <InteractiveText as="p" text={project.description} />
                 <ul className="project-highlights">
                   {project.highlights.map((highlight) => (
@@ -1390,20 +1470,53 @@ function App() {
             </div>
           </article>
 
-          <div className="tech-cert-grid">
-            {technicalCertifications.map((cert) => (
-              <article className="card" key={cert.title}>
-                <InteractiveText as="h3" text={cert.title} tone="heading" />
-                <InteractiveText as="p" text={cert.description} />
-                <div className="tag-row">
-                  {cert.skills.map((skill) => (
-                    <span className="tech-tag" key={skill}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            ))}
+          <div className="tech-cert-compact">
+            <div className="tech-cert-compact-header">
+              <div>
+                <span className="section-label">
+                  Technical Certifications ({technicalCertifications.length})
+                </span>
+                <p className="compact-subtitle">
+                  AI/ML, NLP, Generative AI, Web Development, JavaScript &amp; DevOps Basics
+                </p>
+              </div>
+              <button
+                type="button"
+                className="filter-pill"
+                aria-expanded={showTechCertDetails}
+                onClick={() => setShowTechCertDetails((prev) => !prev)}
+              >
+                {showTechCertDetails
+                  ? "Hide details"
+                  : "Show all technical certificates"}
+              </button>
+            </div>
+
+            {!showTechCertDetails ? (
+              <div className="chip-row">
+                {technicalCertifications.map((cert) => (
+                  <span className="mini-pill" key={cert.title}>
+                    {cert.title}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <div className="tech-cert-grid">
+                {technicalCertifications.map((cert) => (
+                  <article className="card" key={cert.title}>
+                    <InteractiveText as="h3" text={cert.title} tone="heading" />
+                    <InteractiveText as="p" text={cert.description} />
+                    <div className="tag-row">
+                      {cert.skills.map((skill) => (
+                        <span className="tech-tag" key={skill}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -1555,6 +1668,109 @@ function App() {
                 <span>Download Resume</span>
               </a>
             </div>
+
+            <form
+              className="contact-form"
+              onSubmit={handleInquirySubmit}
+              aria-label="Quick message and feedback form"
+            >
+              <div className="contact-form-header">
+                <div>
+                  <span className="section-label">Quick Inquiry / Feedback</span>
+                  <h3>Send a direct message</h3>
+                </div>
+                <span className="badge-pill">Replies to {EMAIL}</span>
+              </div>
+
+              <div className="contact-form-grid">
+                <label className="form-field">
+                  <span>Your Name</span>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Recruiter / Visitor name"
+                    value={inquiryName}
+                    onChange={(e) => setInquiryName(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-field">
+                  <span>Your Email</span>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    value={inquiryEmail}
+                    onChange={(e) => setInquiryEmail(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-field">
+                  <span>Topic</span>
+                  <select
+                    value={inquiryType}
+                    onChange={(e) => setInquiryType(e.target.value)}
+                  >
+                    <option value="Job / Internship Inquiry">
+                      Job / Internship Inquiry
+                    </option>
+                    <option value="Project Collaboration">
+                      Project Collaboration
+                    </option>
+                    <option value="Portfolio Feedback">
+                      Portfolio Feedback
+                    </option>
+                  </select>
+                </label>
+
+                <label className="form-field form-field-full">
+                  <span>Message</span>
+                  <textarea
+                    rows={3}
+                    required
+                    placeholder="Share role details, interview availability, or feedback..."
+                    value={inquiryMessage}
+                    onChange={(e) => setInquiryMessage(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className="contact-form-actions">
+                <button type="submit" className="btn btn-primary">
+                  Open in Email App
+                </button>
+                <a
+                  className="btn btn-secondary"
+                  href={inquiryGmailHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ExternalLinkIcon />
+                  <span>Send via Gmail</span>
+                </a>
+                <button
+                  type="button"
+                  className={`btn btn-secondary${
+                    copiedInquiry ? " btn-copied" : ""
+                  }`}
+                  onClick={handleCopyInquiry}
+                >
+                  {copiedInquiry ? <CheckIcon /> : <CopyIcon />}
+                  <span>
+                    {copiedInquiry ? "Message Copied!" : "Copy Message"}
+                  </span>
+                </button>
+              </div>
+
+              {inquirySubmitted ? (
+                <p className="form-status-note">
+                  Prepared your email draft for {EMAIL}. If your mail client
+                  didn&apos;t open automatically, click{" "}
+                  <strong>Send via Gmail</strong> or{" "}
+                  <strong>Copy Message</strong> above.
+                </p>
+              ) : null}
+            </form>
           </div>
         </section>
       </main>
