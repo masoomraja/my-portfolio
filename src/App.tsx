@@ -926,7 +926,7 @@ function App() {
         <div className="hero-copy">
           <div className="availability-pill">
             <span className="status-dot" aria-hidden="true" />
-            <span>Open to Java, Backend &amp; Software Engineer Roles · Bengaluru</span>
+            <span>Open to Java, Backend &amp; Software Engineer Roles · All Over India</span>
           </div>
 
           <InteractiveText
