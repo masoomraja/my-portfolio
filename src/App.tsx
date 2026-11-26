@@ -7,11 +7,52 @@ const ThreeScene = lazy(() => import("./ThreeScene"));
 const SkillsPlayground = lazy(() => import("./SkillsPlayground"));
 const ContactScene = lazy(() => import("./ContactScene"));
 
+const EMAIL = "masoomraja9123@gmail.com";
+const PHONE = "+91 9123193908";
+const GITHUB_URL = "https://github.com/masoomraja";
+const LINKEDIN_URL = "https://www.linkedin.com/in/md-masoom-raja-3b83a9342/";
+const RESUME_URL = "/Md-Masoom-Raja-Resume.pdf";
+
+const navItems = [
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "awards", label: "Awards" },
+  { id: "projects", label: "Projects" },
+  { id: "certifications", label: "Certifications" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
+
+const recruiterHighlights = [
+  {
+    value: "IEEE CCGE 2026",
+    label: "Best Paper Awardee",
+  },
+  {
+    value: "Oracle Certified",
+    label: "Agentic AI Foundations",
+  },
+  {
+    value: "PAT Technologies",
+    label: "Software Dev Intern (2026)",
+  },
+  {
+    value: "Full-Stack & AI",
+    label: "Java · Spring Boot · Docker",
+  },
+];
+
 const focusAreas = [
   "Java & Spring Boot",
   "Backend & REST APIs",
   "Docker & Cloud",
   "Agentic AI & ML",
+];
+
+const experienceHighlights = [
+  "Contributed to Java and web application development, feature implementation, and relational database workflows.",
+  "Performed debugging, testing, and issue resolution to keep project deliverables on schedule.",
+  "Collaborated with mentors and cross-functional teammates across both frontend and backend tasks.",
 ];
 
 const education = [
@@ -68,69 +109,132 @@ const awardsAndResearch = [
   },
 ];
 
-const projects = [
+type ProjectCategory = "All" | "AI & Cloud" | "Java & Backend" | "DevOps & CV";
+
+type ProjectItem = {
+  category: Exclude<ProjectCategory, "All">;
+  tag: string;
+  title: string;
+  description: string;
+  highlights: string[];
+  stack: string[];
+  href?: string;
+  linkLabel?: string;
+};
+
+const projectCategories: ProjectCategory[] = [
+  "All",
+  "AI & Cloud",
+  "Java & Backend",
+  "DevOps & CV",
+];
+
+const projects: ProjectItem[] = [
   {
+    category: "AI & Cloud",
     tag: "AI & Cloud Intelligence",
     title:
-      "NEXOVRA – AI-Powered Cloud Incident & Deployment Intelligence Platform",
+      "NEXOVRA – AI-Powered Telemetry & Anomaly Detection Platform",
     description:
-      "AI-powered telemetry monitoring, cloud incident intelligence, and unsupervised anomaly detection platform for identifying unusual patterns and deployment risks.",
-    stack: ["Spring Boot", "FastAPI", "Isolation Forest", "React", "Cloud"],
+      "AI-powered telemetry monitoring and unsupervised anomaly detection platform designed to surface unusual system patterns and deployment risks early.",
+    highlights: [
+      "Built microservice architecture combining Spring Boot APIs with FastAPI Isolation Forest inference.",
+      "Paired automated anomaly scoring with a React monitoring interface.",
+    ],
+    stack: ["Spring Boot", "FastAPI", "Isolation Forest", "React"],
     href: "https://github.com/masoomraja/NEXOVRA",
     linkLabel: "View on GitHub",
   },
   {
-    tag: "AI Chatbot & Backend",
+    category: "AI & Cloud",
+    tag: "Cloud Operations & RCA",
+    title:
+      "NEXUS – Cloud Incident & Deployment Intelligence Platform",
+    description:
+      "Cloud operations platform for real-time incident management, anomaly detection, AI-assisted root-cause analysis, and deployment risk intelligence.",
+    highlights: [
+      "Implemented incident workflows and deployment risk observability with React, Node.js, and PostgreSQL.",
+      "Integrated AWS-oriented cloud monitoring and root-cause intelligence pipelines.",
+    ],
+    stack: ["React.js", "Node.js", "PostgreSQL", "AWS", "TypeScript"],
+    href: "https://github.com/masoomraja/NEXUS-AI-Powered-Cloud-Incident-Deployment-Intelligence-Platform",
+    linkLabel: "View on GitHub",
+  },
+  {
+    category: "AI & Cloud",
+    tag: "AI Chatbot & Spring Boot",
     title: "Fee Query AI",
     description:
-      "AI-powered fee management assistant that answers student and fee-related queries in natural language, backed by Spring Boot, local LLM integration, and analytics.",
-    stack: ["Spring Boot", "Java", "Local LLM", "NLP", "Chart.js"],
+      "Natural-language fee management chatbot allowing users to query fees, student records, and payments with a live analytics dashboard.",
+    highlights: [
+      "Built on Spring Boot 3.5.3 with local LLM (LM Studio) integration and smart offline fallback.",
+      "Added real-time Chart.js reporting to visualize fee collections and query responses.",
+    ],
+    stack: ["Spring Boot 3.5", "Java", "Local LLM", "NLP", "Chart.js"],
     href: "https://github.com/masoomraja/fee-query-ai",
     linkLabel: "View on GitHub",
   },
   {
+    category: "DevOps & CV",
     tag: "MCA Final-Year Project",
     title: "Face Recognition-Based Attendance Monitoring System",
     description:
-      "Automated attendance monitoring system built with Python and OpenCV to detect and recognize faces in real time and log records cleanly to CSV.",
+      "Automated attendance monitoring application using computer vision to detect and recognize faces in real time and log records cleanly.",
+    highlights: [
+      "Implemented Haar Cascade face detection and LBPH recognition pipelines in Python and OpenCV.",
+      "Automated timestamped CSV attendance storage to eliminate manual roll-call effort.",
+    ],
     stack: ["Python", "OpenCV", "Haar Cascade", "LBPH", "NumPy", "CSV"],
   },
   {
+    category: "DevOps & CV",
     tag: "DevOps & Containerization",
     title: "Dockerized Portfolio Deployment",
     description:
-      "Containerized personal portfolio web application featuring multi-stage Docker builds, Docker Compose orchestration, Nginx static serving, and interactive 3D scenes.",
+      "Containerized personal portfolio web application featuring multi-stage Docker builds, Docker Compose orchestration, Nginx serving, and 3D WebGL scenes.",
+    highlights: [
+      "Configured multi-stage Node + Nginx Alpine Docker images with immutable asset caching.",
+      "Optimized initial load with route/chunk splitting and local Draco 3D mesh compression.",
+    ],
     stack: ["Docker", "Docker Compose", "Nginx", "React", "Three.js"],
     href: "https://github.com/masoomraja/my-portfolio/tree/codex/dockerize-my-portfolio",
     linkLabel: "View Docker Setup",
   },
   {
+    category: "Java & Backend",
     tag: "Java & JDBC",
     title: "Transactional Bank Management System",
     description:
-      "Java and MySQL banking application supporting customer account handling, secure authentication, balance checks, deposits, withdrawals, and relational data storage.",
+      "Core Java and MySQL banking application handling customer accounts, authentication, balance checks, deposits, and withdrawals.",
+    highlights: [
+      "Designed relational schemas and transactional JDBC queries for account integrity.",
+      "Structured modular OOP layers separating authentication, ledger actions, and persistence.",
+    ],
     stack: ["Java", "JDBC", "MySQL", "OOP"],
   },
   {
+    category: "Java & Backend",
     tag: "Java Networking",
     title: "Real-Time Chatting Application",
     description:
-      "Client-server Java networking application enabling real-time message transfer, connection management, and error handling between users.",
+      "Client-server Java networking application enabling real-time message exchange, connection management, and graceful error handling.",
+    highlights: [
+      "Implemented socket-based communication and concurrent client handling using Java threads.",
+      "Built reliable message framing and disconnect recovery between connected peers.",
+    ],
     stack: ["Java", "Sockets", "Multithreading"],
   },
   {
+    category: "Java & Backend",
     tag: "Java & MySQL",
-    title: "Hotel Management System",
+    title: "Hotel Management & Electricity Billing Systems",
     description:
-      "Application to manage room bookings, customer records, room availability, billing workflows, and staff details in one unified interface.",
-    stack: ["Java", "MySQL", "Desktop UI"],
-  },
-  {
-    tag: "Automation & Billing",
-    title: "Electricity Billing System",
-    description:
-      "Automated billing application that calculates monthly power consumption, generates itemized bills, and persists customer records in MySQL.",
-    stack: ["Java", "MySQL", "JDBC"],
+      "Relational desktop applications for hotel room bookings, staff/billing workflows, and automated monthly electricity bill generation.",
+    highlights: [
+      "Automated tariff calculations, room allocation states, and customer billing history in MySQL.",
+      "Applied clean JDBC CRUD patterns and structured input validation across forms.",
+    ],
+    stack: ["Java", "MySQL", "JDBC", "Desktop UI"],
   },
 ];
 
@@ -187,19 +291,34 @@ const technicalCertifications = [
     title: "Artificial Intelligence & Machine Learning",
     description:
       "Completed training in AI and ML fundamentals covering intelligent systems, model development, and practical applications.",
-    skills: ["Artificial Intelligence", "Machine Learning", "Data Analysis", "Predictive Modelling"],
+    skills: [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Data Analysis",
+      "Predictive Modelling",
+    ],
   },
   {
     title: "Natural Language Processing (NLP)",
     description:
       "Gained practical knowledge of NLP concepts and techniques used to process, understand, and analyze human language.",
-    skills: ["Text Processing", "NLP Fundamentals", "Language Understanding", "Text Analysis"],
+    skills: [
+      "Text Processing",
+      "NLP Fundamentals",
+      "Language Understanding",
+      "Text Analysis",
+    ],
   },
   {
     title: "Generative AI",
     description:
       "Explored generative AI technologies and their applications in building intelligent workflows and content systems.",
-    skills: ["Generative AI", "Prompt Engineering", "AI Applications", "LLM Fundamentals"],
+    skills: [
+      "Generative AI",
+      "Prompt Engineering",
+      "AI Applications",
+      "LLM Fundamentals",
+    ],
   },
   {
     title: "Web Development",
@@ -257,21 +376,136 @@ const strengths = [
   "Cross-functional teamwork",
 ];
 
+function GitHubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      <path
+        fill="currentColor"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"
+      />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      <path
+        fill="currentColor"
+        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"
+      />
+    </svg>
+  );
+}
+
+function CopyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 9h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2Zm6-4H5a2 2 0 0 0-2 2v10"
+      />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m5 13 4 4L19 7"
+      />
+    </svg>
+  );
+}
+
+function DownloadIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
+      />
+    </svg>
+  );
+}
+
+function ExternalLinkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M14 3h7v7m0-7L10 14M5 7v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"
+      />
+    </svg>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon">
+      {open ? (
+        <path
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          d="M6 6l12 12M18 6 6 18"
+        />
+      ) : (
+        <path
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          d="M4 7h16M4 12h16M4 17h16"
+        />
+      )}
+    </svg>
+  );
+}
+
 const socialLinks = [
   {
     label: "GitHub",
-    href: "https://github.com/masoomraja",
+    href: GITHUB_URL,
     helper: "github.com/masoomraja",
+    icon: "github" as const,
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/md-masoom-raja-3b83a9342/",
+    href: LINKEDIN_URL,
     helper: "Professional profile",
+    icon: "linkedin" as const,
   },
   {
-    label: "Dockerized Portfolio",
+    label: "DSA & Daily Code",
+    href: "https://github.com/masoomraja/daily-code",
+    helper: "Java, Spring Boot & DSA",
+    icon: "github" as const,
+  },
+  {
+    label: "Docker Setup",
     href: "https://github.com/masoomraja/my-portfolio/tree/codex/dockerize-my-portfolio",
-    helper: "Containerized repo branch",
+    helper: "Containerized portfolio",
+    icon: "github" as const,
   },
 ];
 
@@ -367,7 +601,49 @@ function DeferredVisual({
 function App() {
   const [activeSection, setActiveSection] = useState("top");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [selectedCategory, setSelectedCategory] =
+    useState<ProjectCategory>("All");
   const cursorGlowRef = useRef<HTMLDivElement>(null);
+
+  const filteredProjects =
+    selectedCategory === "All"
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopiedEmail(true);
+      window.setTimeout(() => setCopiedEmail(false), 2200);
+    } catch {
+      window.location.href = `mailto:${EMAIL}`;
+    }
+  };
+
+  const handleNavSelect = (id: string) => {
+    setMobileMenuOpen(false);
+    setActiveSection(id);
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add("is-visible");
+    }
+  };
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const sections = Array.from(
@@ -377,7 +653,7 @@ function App() {
     let scrollFrameId = 0;
 
     const revealInViewOrPassed = () => {
-      const viewportBottom = window.innerHeight * 0.96;
+      const viewportBottom = window.innerHeight + 160;
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         if (rect.top <= viewportBottom) {
@@ -413,6 +689,7 @@ function App() {
         document.documentElement.scrollHeight - window.innerHeight;
 
       setScrollProgress(maxScroll > 0 ? window.scrollY / maxScroll : 0);
+      setShowBackToTop(window.scrollY > 520);
       revealInViewOrPassed();
       syncActiveSection();
     };
@@ -441,15 +718,11 @@ function App() {
       },
       {
         threshold: [0.01, 0.12, 0.28, 0.48],
-        rootMargin: "0px 0px -40px 0px",
+        rootMargin: "140px 0px 140px 0px",
       }
     );
 
-    sections.forEach((section, index) => {
-      section.style.setProperty(
-        "--reveal-delay",
-        `${Math.min(index * 45, 160)}ms`
-      );
+    sections.forEach((section) => {
       observer.observe(section);
     });
 
@@ -556,6 +829,9 @@ function App() {
         } as CSSProperties
       }
     >
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
       <div className="page-orb page-orb-one" />
       <div className="page-orb page-orb-two" />
       <div className="page-orb page-orb-three" />
@@ -567,31 +843,53 @@ function App() {
         <span className="scroll-trajectory-dot" />
       </div>
 
-      <nav className="navbar">
+      <nav className="navbar" aria-label="Primary navigation">
         <div className="navbar-shell">
-          <a className="brand" href="#top">
+          <a
+            className="brand"
+            href="#top"
+            onClick={() => handleNavSelect("top")}
+          >
             <span className="brand-text">Md Masoom Raja</span>
           </a>
-          <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#education">Education</a>
-            <a href="#awards">Awards</a>
-            <a href="#projects">Projects</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
+
+          <button
+            className="nav-toggle"
+            type="button"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="primary-nav-links"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+          >
+            <MenuIcon open={mobileMenuOpen} />
+          </button>
+
+          <div
+            className={`nav-links${mobileMenuOpen ? " is-open" : ""}`}
+            id="primary-nav-links"
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={activeSection === item.id ? "is-active" : undefined}
+                aria-current={activeSection === item.id ? "page" : undefined}
+                onClick={() => handleNavSelect(item.id)}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
         </div>
       </nav>
 
       <header className="hero section-shell" id="top">
         <div className="hero-copy">
-          <InteractiveText
-            as="p"
-            className="eyebrow"
-            text="MCA Student · Java & Backend Developer · IEEE Best Paper Awardee"
-            tone="label"
-          />
+          <div className="availability-pill">
+            <span className="status-dot" aria-hidden="true" />
+            <span>Open to Java, Backend &amp; Software Engineer Roles · Bengaluru</span>
+          </div>
+
           <InteractiveText
             as="h1"
             text="Building reliable Java backends, cloud systems, and AI-powered apps."
@@ -600,25 +898,40 @@ function App() {
           <InteractiveText
             as="p"
             className="hero-summary"
-            text="Results-driven MCA student and Software Development Intern with hands-on experience in Java, Spring Boot, web technologies, Docker, and AI/ML. Recognized with the Best Paper Award at IEEE CCGE 2026 and Oracle Agentic AI Certified."
+            text="MCA student and Software Development Intern with hands-on experience in Java, Spring Boot, web technologies, Docker, and AI/ML. Honored with the Best Paper Award at IEEE CCGE 2026 and Oracle Agentic AI Certified."
           />
 
-          <div className="hero-meta">
-            <span>Bengaluru, India</span>
-            <span>Open to Java, Backend &amp; Software roles</span>
+          <div className="hero-buttons">
+            <a className="btn btn-primary" href={RESUME_URL} download>
+              <DownloadIcon />
+              <span>Download Resume</span>
+            </a>
+            <a
+              className="btn btn-secondary"
+              href={RESUME_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLinkIcon />
+              <span>Preview Resume</span>
+            </a>
+            <button
+              className={`btn btn-secondary${copiedEmail ? " btn-copied" : ""}`}
+              type="button"
+              onClick={handleCopyEmail}
+            >
+              {copiedEmail ? <CheckIcon /> : <CopyIcon />}
+              <span>{copiedEmail ? "Email Copied!" : "Copy Email"}</span>
+            </button>
           </div>
 
-          <div className="hero-buttons">
-            <a
-              className="btn btn-primary"
-              href="/Md-Masoom-Raja-Resume.pdf"
-              download
-            >
-              Download Resume
-            </a>
-            <a className="btn btn-secondary" href="mailto:masoomraja9123@gmail.com">
-              Email Me
-            </a>
+          <div className="proof-strip" aria-label="Key achievements">
+            {recruiterHighlights.map((item) => (
+              <div className="proof-card" key={item.value}>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </div>
+            ))}
           </div>
 
           <div className="social-links">
@@ -631,7 +944,10 @@ function App() {
                 rel="noreferrer"
                 title={item.helper}
               >
-                <span>{item.label}</span>
+                <span className="social-link-title">
+                  {item.icon === "linkedin" ? <LinkedInIcon /> : <GitHubIcon />}
+                  {item.label}
+                </span>
                 <small>{item.helper}</small>
               </a>
             ))}
@@ -659,7 +975,7 @@ function App() {
         </div>
       </header>
 
-      <main className="content">
+      <main className="content" id="main-content">
         <section
           className={getSectionClassName("about")}
           data-scroll-section="about"
@@ -675,35 +991,36 @@ function App() {
               />
               <InteractiveText
                 as="h2"
-                text="Engineering logic, backend systems, and practical delivery"
+                text="Industry internship, backend engineering, and delivery"
                 tone="heading"
               />
             </div>
             <InteractiveText
               as="p"
               className="section-intro"
-              text="I enjoy solving software engineering problems, designing clean backend workflows, and containerizing full-stack and AI-powered applications for real-world deployment."
+              text="I combine a strong foundation in Java, OOP, and DSA with full-stack, Docker, and AI/ML experience to ship clean, dependable software."
             />
           </div>
 
           <div className="feature-panel">
             <div className="feature-copy">
-              <span className="badge-pill">Experience · Feb 2026 – May 2026</span>
+              <span className="badge-pill">Internship · Feb 2026 – May 2026</span>
               <InteractiveText
                 as="h3"
                 text="Junior Software Development Intern — PAT Technologies Pvt. Ltd. (Edutainer)"
                 tone="heading"
               />
-              <InteractiveText
-                as="p"
-                text="Contributed to frontend and backend application development involving Java, web technologies, and relational database management. Performed debugging, testing, and feature implementation while collaborating with mentors and engineering teammates to deliver milestones on schedule."
-              />
+              <ul className="clean-list experience-list">
+                {experienceHighlights.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             </div>
             <div className="feature-stats">
               <div className="stat-card">
                 <InteractiveText
                   as="strong"
-                  text="Primary stack"
+                  text="Primary Stack"
                   tone="heading"
                 />
                 <span>Java, Spring Boot, JDBC, MySQL, React, Docker</span>
@@ -711,10 +1028,10 @@ function App() {
               <div className="stat-card">
                 <InteractiveText
                   as="strong"
-                  text="Core strengths"
+                  text="Engineering Focus"
                   tone="heading"
                 />
-                <span>OOP, DSA, AI/ML, Cloud, Team Collaboration</span>
+                <span>REST APIs, Anomaly Detection, Cloud &amp; Agentic AI</span>
               </div>
             </div>
           </div>
@@ -742,7 +1059,7 @@ function App() {
             <InteractiveText
               as="p"
               className="section-intro"
-              text="Postgraduate and undergraduate computer applications training grounded in software development and research."
+              text="Postgraduate and undergraduate computer applications training grounded in software engineering and research."
             />
           </div>
 
@@ -825,12 +1142,39 @@ function App() {
             <InteractiveText
               as="p"
               className="section-intro"
-              text="Selected engineering builds spanning AI-powered cloud intelligence, NLP assistants, computer vision, containerized deployments, and core Java applications."
+              text="Filter by domain to explore AI-powered cloud intelligence platforms, NLP assistants, computer vision, containerized deployments, and core Java applications."
             />
           </div>
 
+          <div
+            className="filter-bar"
+            role="group"
+            aria-label="Filter projects by category"
+          >
+            {projectCategories.map((category) => {
+              const count =
+                category === "All"
+                  ? projects.length
+                  : projects.filter((p) => p.category === category).length;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  className={`filter-pill${
+                    selectedCategory === category ? " is-active" : ""
+                  }`}
+                  aria-pressed={selectedCategory === category}
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category} ({count})
+                </button>
+              );
+            })}
+          </div>
+
           <div className="projects-grid">
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <article className="card project-card" key={project.title}>
                 <div className="card-top-row">
                   <p className="project-index">0{index + 1}</p>
@@ -838,6 +1182,11 @@ function App() {
                 </div>
                 <InteractiveText as="h3" text={project.title} tone="heading" />
                 <InteractiveText as="p" text={project.description} />
+                <ul className="project-highlights">
+                  {project.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
                 <div className="tag-row">
                   {project.stack.map((tech) => (
                     <span className="tech-tag" key={tech}>
@@ -852,7 +1201,9 @@ function App() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {project.linkLabel ?? "View Repository"} →
+                    <GitHubIcon />
+                    <span>{project.linkLabel ?? "View Repository"}</span>
+                    <span aria-hidden="true">→</span>
                   </a>
                 ) : null}
               </article>
@@ -882,7 +1233,7 @@ function App() {
             <InteractiveText
               as="p"
               className="section-intro"
-              text="Verified industry, academic, and technical certifications across Agentic AI, Cloud Computing, Research & IPR, and full-stack engineering."
+              text="Industry, academic, and technical certifications across Agentic AI, Cloud Computing, Research & IPR, and software engineering."
             />
           </div>
 
@@ -992,7 +1343,19 @@ function App() {
           </div>
 
           <div className="strengths-bar">
-            <span className="section-label">How I Work</span>
+            <div className="strengths-header">
+              <span className="section-label">How I Work</span>
+              <a
+                className="project-link"
+                href="https://github.com/masoomraja/daily-code"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <GitHubIcon />
+                <span>Explore Daily Java &amp; DSA Practice</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
             <div className="chip-row">
               {strengths.map((item) => (
                 <span className="mini-pill" key={item}>
@@ -1041,37 +1404,44 @@ function App() {
             </div>
 
             <div className="contact-details">
-              <a href="mailto:masoomraja9123@gmail.com">
-                masoomraja9123@gmail.com
-              </a>
-              <a href="tel:+919123193908">+91 9123193908</a>
-              <a
-                href="https://www.linkedin.com/in/md-masoom-raja-3b83a9342/"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <div className="contact-email-row">
+                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+                <button
+                  type="button"
+                  className="copy-inline-btn"
+                  aria-label="Copy email address"
+                  onClick={handleCopyEmail}
+                >
+                  {copiedEmail ? <CheckIcon /> : <CopyIcon />}
+                  <span>{copiedEmail ? "Copied" : "Copy"}</span>
+                </button>
+              </div>
+              <a href="tel:+919123193908">{PHONE}</a>
+              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">
                 linkedin.com/in/md-masoom-raja-3b83a9342
               </a>
-              <a
-                href="https://github.com/masoomraja"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">
                 github.com/masoomraja
               </a>
               <span>Bengaluru, India</span>
             </div>
 
             <div className="hero-buttons contact-actions">
-              <a className="btn btn-primary" href="mailto:masoomraja9123@gmail.com">
+              <a className="btn btn-primary" href={`mailto:${EMAIL}`}>
                 Send Email
               </a>
               <a
                 className="btn btn-secondary"
-                href="/Md-Masoom-Raja-Resume.pdf"
-                download
+                href={RESUME_URL}
+                target="_blank"
+                rel="noreferrer"
               >
-                Save Resume
+                <ExternalLinkIcon />
+                <span>Preview Resume</span>
+              </a>
+              <a className="btn btn-secondary" href={RESUME_URL} download>
+                <DownloadIcon />
+                <span>Download Resume</span>
               </a>
             </div>
           </div>
@@ -1079,28 +1449,36 @@ function App() {
       </main>
 
       <footer className="site-footer section-shell">
-        <p>© {new Date().getFullYear()} Md Masoom Raja · Built with React, TypeScript &amp; Three.js</p>
+        <p>
+          © {new Date().getFullYear()} Md Masoom Raja · Built with React,
+          TypeScript &amp; Three.js
+        </p>
         <div className="footer-links">
-          <a
-            href="https://github.com/masoomraja"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer">
             GitHub
           </a>
-          <a
-            href="https://www.linkedin.com/in/md-masoom-raja-3b83a9342/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">
             LinkedIn
           </a>
-          <a href="/Md-Masoom-Raja-Resume.pdf" download>
+          <a href={RESUME_URL} download>
             Resume
           </a>
-          <a href="#top">Back to top ↑</a>
+          <a href="#top" onClick={() => handleNavSelect("top")}>
+            Back to top ↑
+          </a>
         </div>
       </footer>
+
+      {showBackToTop ? (
+        <a
+          className="back-to-top-fab"
+          href="#top"
+          aria-label="Back to top"
+          onClick={() => handleNavSelect("top")}
+        >
+          ↑
+        </a>
+      ) : null}
     </div>
   );
 }

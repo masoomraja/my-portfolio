@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Decal, Html, useTexture } from "@react-three/drei";
 import type { Group, Texture } from "three";
@@ -168,12 +168,24 @@ function SkillSphere({
   );
 }
 
-function SkillsField() {
+function SkillsField({ scatterSignal }: { scatterSignal: number }) {
   const groupRefs = useRef<Array<Group | null>>([]);
   const bodies = useMemo(() => createBodies(), []);
   const pointerWorld = useRef(new Vector3());
+  const lastScatterRef = useRef(0);
 
   useFrame((state) => {
+    if (scatterSignal !== lastScatterRef.current) {
+      lastScatterRef.current = scatterSignal;
+      bodies.forEach((body) => {
+        body.velocity.set(
+          randomBetween(-0.085, 0.085),
+          randomBetween(-0.065, 0.075),
+          randomBetween(-0.05, 0.05)
+        );
+      });
+    }
+
     const dt = clamp(state.clock.getDelta() * 60, 0.6, 1.35);
     const unprojected = new Vector3(state.pointer.x, state.pointer.y, 0.5)
       .unproject(state.camera)
@@ -312,6 +324,8 @@ function SkillsField() {
 }
 
 function SkillsPlayground() {
+  const [scatterSignal, setScatterSignal] = useState(0);
+
   return (
     <div className="skills-showcase">
       <div className="skills-showcase-copy">
@@ -327,6 +341,13 @@ function SkillsPlayground() {
           <li>Databases &amp; DevOps: MySQL, MongoDB, Docker, Nginx, AWS</li>
           <li>AI &amp; Languages: Python, JavaScript, C, C++, GenAI &amp; NLP</li>
         </ul>
+        <button
+          className="btn btn-secondary skills-scatter-btn"
+          type="button"
+          onClick={() => setScatterSignal((prev) => prev + 1)}
+        >
+          Scatter 3D Spheres
+        </button>
       </div>
 
       <div className="skills-playground">
@@ -352,12 +373,12 @@ function SkillsPlayground() {
           <pointLight color="#ffffff" intensity={12} position={[0, -0.6, 4.6]} />
 
           <Suspense fallback={<SkillsLoader />}>
-            <SkillsField />
+            <SkillsField scatterSignal={scatterSignal} />
           </Suspense>
         </Canvas>
 
         <div className="skills-playground-hint">
-          Push through the skill balls with your cursor
+          Move cursor or tap Scatter to interact
         </div>
       </div>
     </div>
